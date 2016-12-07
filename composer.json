@@ -1,0 +1,32 @@
+{
+    "name": "azgalot/api-client-ms",
+    "description": "PHP client for МойСклад JSON API",
+    "type": "library",
+    "keywords": ["API", "МойСклад", "JSON"],
+    "homepage": "https://www.moysklad.ru",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Artahanov A.A.",
+            "email": "azgalot9@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0",
+        "ext-curl": "*"
+    },
+    "support": {
+        "email": "azgalot9@gmail.com"
+    },
+    "autoload": {
+        "psr-0": { "MoySklad\\": "lib/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "config": {
+        "process-timeout": 600
+    }
+}
