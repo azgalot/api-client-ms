@@ -21,11 +21,6 @@
     "autoload": {
         "psr-0": { "MoySklad\\": "lib/" }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev"
-        }
-    },
     "config": {
         "process-timeout": 600
     }
