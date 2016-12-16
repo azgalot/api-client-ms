@@ -75,6 +75,20 @@ class Client
     protected $retry;
 
     /**
+     * Login access to API
+     * @var string
+     * @access protected
+     */
+    protected $login;
+
+    /**
+     * Password access to API
+     * @var string
+     * @access protected
+     */
+    protected $password;
+
+    /**
      * Client constructor.
      *
      * @param string $login    api login
@@ -98,7 +112,6 @@ class Client
      *
      * @throws \InvalidArgumentException
      * @throws CurlException
-     * @throws InvalidJsonException
      * @throws MoySkladException
      *
      * @return ApiResponse
@@ -144,7 +157,7 @@ class Client
             !empty($parameters['data'])
         ) {
             if (strlen(json_encode($parameters['data'])) > self::MAX_DATA_VALUE) {
-                throw new MSException(
+                throw new MoySkladException(
                     sprintf(
                         'The POST data size should not exceed `%s` bytes',
                         self::MAX_DATA_VALUE

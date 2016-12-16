@@ -31,6 +31,18 @@ use MoySklad\Response\ApiResponse;
 class ApiClient
 {
     /**
+     * Requests
+     */
+    const REQUEST_ATTRIBUTES_MAIN = array('metadata', 'all', 'bystore', 'byoperation');
+    const REQUEST_ATTRIBUTES_SECOND = array(
+        'accounts',
+        'contactpersons',
+        'packs',
+        'cashiers',
+        'positions'
+    );
+    
+    /**
      * JsonAPI client МойСклад
      * @var client
      * @access protected
