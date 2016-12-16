@@ -25,6 +25,6 @@ namespace MoySklad\Exception;
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://online.moysklad.ru/api/remap/1.1/doc/index.html
  */
-class MoySkladException
+class MoySkladException extends \Exception
 {
 }

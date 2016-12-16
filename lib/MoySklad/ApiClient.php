@@ -84,6 +84,25 @@ class ApiClient
     );
 
     /**
+     * Filters for get data requests
+     * @var main_filters
+     * @access protected
+     */
+    protected $main_filters = array(
+        "updatedFrom",
+        "updatedTo",
+        "updatedBy",
+        "state.name",
+        "state.id",
+        "organization.id",
+        "search",
+        "isDeleted",
+        "limit",
+        "offset",
+        "filters"
+    );
+
+    /**
      * Client creating
      *
      * @param string $login    api login
@@ -125,31 +144,40 @@ class ApiClient
         unset($param);
         $uri = trim($uri, '/');
 
+        $filter = array();
+
         switch (count($params)) {
             case 1:
-                $filters['limit'] = (!empty($filters['limit'])) ? $filters['limit'] : 100;
-                $filters['offset'] = (!empty($filters['offset'])) ? $filters['offset'] : 0;
-                $filters['filters'] = (!empty($filters['filters'])) ? $filters['filters'] : null;
-                break;
             case 2:
-                if (!in_array($params[1], self::REQUEST_ATTRIBUTES_MAIN)) {
-                    $this->checkUuid($params[1]);
+                if (!empty(array_diff(array_keys($filters), $this->main_filters))) {
+                    throw new \InvalidArgumentException(
+                        sprintf(
+                            'Wrong attributes: `%s`',
+                            implode(', ', array_diff(array_keys($filters), $this->main_filters))
+                        )
+                    );
                 }
-                $filters['limit'] = (!empty($filters['limit'])) ? $filters['limit'] : 100;
-                $filters['offset'] = (!empty($filters['offset'])) ? $filters['offset'] : 0;
-                $filters['filters'] = (!empty($filters['filters'])) ? $filters['filters'] : null;
+                foreach ($filters as $index=>$value) {
+                    $filter[$index] = $value;
+                }
+                unset($index, $value);
                 break;
             case 3:
-                $this->checkUuid($params[1]);
-                if (!in_array($params[2], self::REQUEST_ATTRIBUTES_SECOND)) {
-                    throw new \InvalidArgumentException(sprintf('Wrong attribute: `%s`', $params[2]));
-                }
-                break;
             case 4:
                 $this->checkUuid($params[1]);
                 if (!in_array($params[2], self::REQUEST_ATTRIBUTES_SECOND)) {
                     throw new \InvalidArgumentException(sprintf('Wrong attribute: `%s`', $params[2]));
                 }
+                break;
+        }
+
+        switch (count($params)) {
+            case 2:
+                if (!in_array($params[1], self::REQUEST_ATTRIBUTES_MAIN)) {
+                    $this->checkUuid($params[1]);
+                }
+                break;
+            case 4:
                 $this->checkUuid($params[3]);
                 break;
         }
@@ -157,7 +185,7 @@ class ApiClient
         return $this->client->makeRequest(
             $uri,
             Client::METHOD_GET,
-            $filters
+            $filter
         );
     }
 

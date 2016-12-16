@@ -15,6 +15,7 @@
 namespace MoySklad\Response;
 
 use MoySklad\Exception\InvalidJsonException;
+use MoySklad\Exception\MoySkladException;
 
 /**
  * PHP version 5.6
@@ -69,6 +70,20 @@ class ApiResponse implements \ArrayAccess
     public function getStatusCode()
     {
         return $this->statusCode;
+    }
+
+    /**
+     * Return HTTP response body
+     *
+     * @return array
+     */
+    public function getResponseBody()
+    {
+        if (!$this->isSuccessful()) {
+            throw new MoySkladException("MoySklad return \"{$this->getStatusCode()}\" status code");
+        }
+
+        return $this->response;
     }
 
     /**
