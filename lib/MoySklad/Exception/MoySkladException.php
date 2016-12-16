@@ -3,7 +3,7 @@
 /**
  * PHP version 5.6
  *
- * Class CurlException
+ * Class MoySkladException
  *
  * @category MoySklad
  * @package  MoySklad
@@ -17,7 +17,7 @@ namespace MoySklad\Exception;
 /**
  * PHP version 5.6
  *
- * Class CurlException
+ * Class MoySkladException
  *
  * @category MoySklad
  * @package  MoySklad
